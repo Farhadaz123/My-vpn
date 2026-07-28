@@ -1,53 +1,48 @@
 #!/bin/sh
-# entrypoint.sh - V2Ray startup for Railway
-# Downloads official V2Ray binary and runs it
+# entrypoint.sh - V2Ray for Railway with direct binary download
+
+set -e
 
 UUID=${UUID:-$(cat /proc/sys/kernel/random/uuid)}
 PORT=${PORT:-8080}
 
-# Download V2Ray binary
-echo "Downloading V2Ray..."
-curl -sL https://github.com/v2fly/v2ray-core/releases/latest/download/v2ray-linux-64.zip -o /tmp/v2ray.zip
-unzip -o /tmp/v2ray.zip -d /usr/local/bin/ v2ray
-chmod +x /usr/local/bin/v2ray
+echo "=== Step 1: Downloading V2Ray ==="
+curl -sL -o /tmp/v2ray.zip \
+  "https://github.com/v2fly/v2ray-core/releases/download/v5.16.1/v2ray-linux-64.zip"
+echo "Download complete ($(wc -c < /tmp/v2ray.zip) bytes)"
 
-# Create config directory
-mkdir -p /etc/v2ray
+echo "=== Step 2: Extracting ==="
+unzip -o /tmp/v2ray.zip v2ray v2ctl geosite.dat geoip.dat -d /usr/local/bin/ 2>&1
+chmod +x /usr/local/bin/v2ray /usr/local/bin/v2ctl 2>/dev/null
+echo "Extract complete"
 
-# Write config JSON directly
-cat > /etc/v2ray/config.json << ENDCONFIG
+echo "=== Step 3: Writing config ==="
+cat > /etc/v2ray-config.json << EOF
 {
   "inbounds": [
     {
-      "listen": "0.0.0.0",
       "port": ${PORT},
+      "listen": "0.0.0.0",
       "protocol": "vmess",
       "settings": {
         "clients": [
-          {
-            "id": "${UUID}",
-            "alterId": 0
-          }
+          { "id": "${UUID}", "alterId": 0 }
         ]
       },
       "streamSettings": {
         "network": "ws",
-        "wsSettings": {
-          "path": "/",
-          "headers": {
-            "Host": ""
-          }
-        }
+        "wsSettings": { "path": "/", "headers": { "Host": "" } }
       }
     }
   ],
   "outbounds": [
-    {
-      "protocol": "freedom"
-    }
+    { "protocol": "freedom", "tag": "direct" }
   ]
 }
-ENDCONFIG
+EOF
+echo "Config written"
 
-echo "V2Ray started — UUID: ${UUID} | Port: ${PORT}"
-exec /usr/local/bin/v2ray run -config /etc/v2ray/config.json
+echo "=== Step 4: Starting V2Ray ==="
+echo "UUID: ${UUID}"
+echo "Port: ${PORT}"
+exec /usr/local/bin/v2ray run -config /etc/v2ray-config.json

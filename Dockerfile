@@ -11,7 +11,7 @@ RUN curl -sL https://github.com/XTLS/Xray-core/releases/latest/download/Xray-lin
     chmod +x /usr/local/bin/xray && \
     rm -f /tmp/xray.zip
 
-# نصب Marzban
+# نصب Marzaban
 WORKDIR /app
 RUN git clone https://github.com/Gozargah/Marzban.git .
 RUN pip install --no-cache-dir -r requirements/base.txt

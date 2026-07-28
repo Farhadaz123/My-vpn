@@ -1,39 +1,53 @@
 #!/bin/sh
 # entrypoint.sh - V2Ray startup for Railway
-# Uses Python to replace placeholders (more reliable than sed in Alpine)
+# Downloads official V2Ray binary and runs it
 
 UUID=${UUID:-$(cat /proc/sys/kernel/random/uuid)}
 PORT=${PORT:-8080}
 
-# Use Python to replace placeholders (Alpine sed is limited)
-python3 -c "
-import json, sys, uuid, os
+# Download V2Ray binary
+echo "Downloading V2Ray..."
+curl -sL https://github.com/v2fly/v2ray-core/releases/latest/download/v2ray-linux-64.zip -o /tmp/v2ray.zip
+unzip -o /tmp/v2ray.zip -d /usr/local/bin/ v2ray
+chmod +x /usr/local/bin/v2ray
 
-config = {
-    'inbounds': [{
-        'listen': '0.0.0.0',
-        'port': int(os.environ.get('PORT', '8080')),
-        'protocol': 'vmess',
-        'settings': {
-            'clients': [{
-                'id': os.environ.get('UUID', str(uuid.uuid4())),
-                'alterId': 0
-            }]
-        },
-        'streamSettings': {
-            'network': 'ws',
-            'wsSettings': {'path': '/', 'headers': {'Host': ''}},
-            'tlsSettings': {'insecure': True}
+# Create config directory
+mkdir -p /etc/v2ray
+
+# Write config JSON directly
+cat > /etc/v2ray/config.json << ENDCONFIG
+{
+  "inbounds": [
+    {
+      "listen": "0.0.0.0",
+      "port": ${PORT},
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "${UUID}",
+            "alterId": 0
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "wsSettings": {
+          "path": "/",
+          "headers": {
+            "Host": ""
+          }
         }
-    }],
-    'outbounds': [{'protocol': 'freedom'}]
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom"
+    }
+  ]
 }
+ENDCONFIG
 
-with open('/etc/v2ray/config.json', 'w') as f:
-    json.dump(config, f, indent=2)
-
-print(f'Config written for UUID={config[\"inbounds\"][0][\"settings\"][\"clients\"][0][\"id\"]} port={config[\"inbounds\"][0][\"port\"]}')
-"
-
-echo "Starting V2Ray with UUID: $UUID on port: $PORT"
-exec v2ray run -config /etc/v2ray/config.json
+echo "V2Ray started — UUID: ${UUID} | Port: ${PORT}"
+exec /usr/local/bin/v2ray run -config /etc/v2ray/config.json

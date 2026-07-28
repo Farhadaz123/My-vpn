@@ -1,17 +1,13 @@
 FROM alpine:3.19
 
-# Install v2ray, python3 and dependencies
+# Install dependencies only (V2Ray downloaded on startup)
 RUN apk add --no-cache \
-    v2ray \
-    python3 \
     ca-certificates \
     tzdata \
     curl \
-    openssl
+    unzip
 
 ENV TZ=Asia/Tehran
-
-RUN mkdir -p /etc/v2ray /var/log/v2ray
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh

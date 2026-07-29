@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>آموزش نصب 3x-ui روی Railway</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Vazirmatn',sans-serif;
+}
+body{
+    background:#0f172a;
+    color:#fff;
+    padding:30px;
+}
+.container{
+    max-width:1000px;
+    margin:auto;
+}
+.header{
+    background:linear-gradient(135deg,#2563eb,#06b6d4);
+    padding:35px;
+    border-radius:18px;
+    text-align:center;
+    margin-bottom:25px;
+    box-shadow:0 10px 30px rgba(0,0,0,.35);
+}
+.header h1{
+    font-size:34px;
+}
+.header p{
+    margin-top:12px;
+    color:#eaf7ff;
+}
+
+.notice{
+    background:#1e293b;
+    border-right:5px solid #38bdf8;
+    padding:20px;
+    border-radius:12px;
+    margin-bottom:25px;
+}
+
+.section{
+    background:#1e293b;
+    margin-bottom:25px;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,.25);
+}
+
+.section h2{
+    background:#2563eb;
+    padding:18px;
+    font-size:22px;
+}
+
+.content{
+    padding:25px;
+}
+
+ol{
+    padding-right:22px;
+}
+
+li{
+    margin-bottom:18px;
+    line-height:2;
+}
+
+.copy{
+    margin:12px 0;
+    background:#0f172a;
+    border:1px solid #334155;
+    border-radius:10px;
+    display:flex;
+    overflow:hidden;
+}
+
+.copy input{
+    flex:1;
+    background:transparent;
+    border:none;
+    color:#00ff95;
+    padding:15px;
+    font-size:15px;
+    outline:none;
+}
+
+.copy button{
+    background:#2563eb;
+    color:white;
+    border:none;
+    width:120px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.copy button:hover{
+    background:#1d4ed8;
+}
+
+.table{
+    margin-top:20px;
+    border-collapse:collapse;
+    width:100%;
+}
+
+.table th{
+    background:#2563eb;
+}
+
+.table th,.table td{
+    border:1px solid #334155;
+    padding:15px;
+    text-align:center;
+}
+
+.footer{
+    text-align:center;
+    margin-top:35px;
+    color:#94a3b8;
+}
+
+.success{
+    color:#22c55e;
+    font-weight:bold;
+}
+
+.warning{
+    color:#fbbf24;
+    font-weight:bold;
+}
+a{
+    text-decoration:none;
+    font-weight:600;
+}
+
+a:hover{
+    text-decoration:underline;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+<h1>🚀 آموزش نصب 3x-ui روی Railway</h1>
+<p>راهنمای قدم به قدم همراه با بخش‌های کپی‌خور</p>
+</div>
+
+<div class="notice">
+<b>📂 پیشنیاز:</b><br><br>
+
+قبل از شروع آموزش، موارد زیر را آماده کنید:
+
+<br><br>
+
+🔹 فایل <b>Dockerfile</b> ضمیمه همین پست را دانلود کنید.
+
+<br><br>
+
+🔹 برای ساخت ایمیل موقت جهت ثبت‌نام:
+<br>
+
+<a href="https://atomicmail.io" target="_blank" style="color:#38bdf8;">
+https://atomicmail.io
+</a>
+
+</div>
+
+<div class="section">
+<h2>📤 مرحله ۱ - آپلود فایل در GitHub</h2>
+
+<div class="content">
+
+<ol>
+
+<li>
+وارد سایت GitHub شوید و یک Repository جدید بسازید:
+
+<br><br>
+
+<a href="https://github.com" target="_blank" style="color:#38bdf8;">
+https://github.com
+</a>
+
+</li>
+
+<li>
+نام Repository را وارد کنید:
+<div class="copy">
+<input id="c1" value="railway-3xui" readonly>
+<button onclick="copyText('c1')">کپی</button>
+</div>
+</li>
+
+<li>
+تیک <b>Add a README file</b> را بزنید.
+</li>
+
+<li>
+از قسمت <b>Add file → Upload files</b> فایل Dockerfile را آپلود کنید.
+</li>
+
+<li>
+روی <b>Commit changes</b> کلیک کنید.
+</li>
+
+</ol>
+
+</div>
+</div>
+
+<div class="section">
+<h2>🚄 مرحله ۲ - نصب روی Railway</h2>
+
+<div class="content">
+
+<ol>
+
+<li>
+وارد سایت Railway شوید و با GitHub لاگین کنید:
+
+<br><br>
+
+<a href="https://railway.com" target="_blank" style="color:#38bdf8;">
+https://railway.com
+</a>
+
+</li>
+
+<li>
+از مسیر زیر پروژه را ایجاد کنید:
+
+<div class="copy">
+<input id="c2" value="New Project → Deploy from GitHub Repo" readonly>
+<button onclick="copyText('c2')">کپی</button>
+</div>
+
+</li>
+
+<li>Repository ساخته شده را انتخاب کنید.</li>
+
+</ol>
+
+</div>
+</div>
+
+<div class="section">
+<h2>💾 مرحله ۳ - جلوگیری از پاک شدن اطلاعات (Volume)</h2>
+
+<div class="content">
+
+<p class="warning">
+اگر این مرحله را انجام ندهید، بعد از ری‌استارت تمام اکانت‌ها حذف خواهند شد.
+</p>
+
+<ol>
+
+<li>کلیدهای Ctrl + K را بزنید.</li>
+
+<li>
+
+عبارت زیر را جستجو کنید:
+
+<div class="copy">
+<input id="c3" value="Create Volume" readonly>
+<button onclick="copyText('c3')">کپی</button>
+</div>
+
+</li>
+
+<li>
+
+Mount Path را برابر مقدار زیر قرار دهید:
+
+<div class="copy">
+<input id="c4" value="/etc/x-ui/" readonly>
+<button onclick="copyText('c4')">کپی</button>
+</div>
+
+</li>
+
+</ol>
+
+</div>
+</div>
+
+<div class="section">
+<h2>🌐 مرحله ۴ - تنظیم پورت و شبکه</h2>
+
+<div class="content">
+
+<h3>الف) ورود به پنل</h3>
+
+<ol>
+
+<li>
+
+Variable Name
+
+<div class="copy">
+<input id="c5" value="PORT" readonly>
+<button onclick="copyText('c5')">کپی</button>
+</div>
+
+</li>
+
+<li>
+
+Variable Value
+
+<div class="copy">
+<input id="c6" value="2053" readonly>
+<button onclick="copyText('c6')">کپی</button>
+</div>
+
+</li>
+
+<li>
+از قسمت Public Networking گزینه Generate Domain را بزنید.
+</li>
+
+</ol>
+
+<hr style="margin:25px 0;opacity:.2;">
+
+<h3>ب) مسیر اتصال کاربران</h3>
+
+<ol>
+
+<li>Add TCP Proxy</li>
+
+<li>
+
+پورت:
+
+<div class="copy">
+<input id="c7" value="8080" readonly>
+<button onclick="copyText('c7')">کپی</button>
+</div>
+
+</li>
+
+<li>دامنه TCP و پورت ۵ رقمی تولید شده را یادداشت کنید.</li>
+
+</ol>
+
+</div>
+</div>
+
+<div class="section">
+
+<h2>⚙ مرحله ۵ - ساخت Inbound در 3x-ui</h2>
+
+<div class="content">
+
+<p class="success">
+نام کاربری اولیه: admin<br>
+رمز اولیه: admin
+</p>
+
+<table class="table">
+
+<tr>
+<th>تنظیم</th>
+<th>مقدار</th>
+</tr>
+
+<tr>
+<td>Protocol</td>
+<td>vless</td>
+</tr>
+
+<tr>
+<td>Port</td>
+<td>8080</td>
+</tr>
+
+<tr>
+<td>Network</td>
+<td>xhttp</td>
+</tr>
+
+<tr>
+<td>Path</td>
+<td>/assets</td>
+</tr>
+
+<tr>
+<td>xPaddingBytes</td>
+<td>5-70</td>
+</tr>
+
+<tr>
+<td>Security</td>
+<td>reality</td>
+</tr>
+
+<tr>
+<td>Target</td>
+<td>www.samsung.com:443</td>
+</tr>
+
+<tr>
+<td>SNI</td>
+<td>www.samsung.com</td>
+</tr>
+
+</table>
+
+<br>
+
+<div class="copy">
+<input id="c8" value="/assets" readonly>
+<button onclick="copyText('c8')">کپی</button>
+</div>
+
+<div class="copy">
+<input id="c9" value="www.samsung.com:443" readonly>
+<button onclick="copyText('c9')">کپی</button>
+</div>
+
+<div class="copy">
+<input id="c10" value="www.samsung.com" readonly>
+<button onclick="copyText('c10')">کپی</button>
+</div>
+
+</div>
+
+</div>
+
+<div class="footer">
+ساخته شده ❤️ برای آموزش نصب 3x-ui روی Railway
+</div>
+
+</div>
+
+<script>
+
+function copyText(id){
+
+var copy=document.getElementById(id);
+
+copy.select();
+
+copy.setSelectionRange(0,99999);
+
+navigator.clipboard.writeText(copy.value);
+
+event.target.innerHTML="✅ کپی شد";
+
+setTimeout(function(){
+
+event.target.innerHTML="کپی";
+
+},1500);
+
+}
+
+</script>
+
+</body>
+</html>
